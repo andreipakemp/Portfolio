@@ -1,0 +1,45 @@
+{% load static temptag_nav %}
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Andrei Pak's Portfolio</title>
+        <link href="{% static 'base.css' %}" rel="stylesheet" type="text/css">
+    </head>
+    
+    <body>        
+        <div class="sidenav">
+            
+            {%if user.is_authenticated%}
+                <p>Hello, {{user.username}}.</p>
+                <a href="">Approve a Friend</a>
+                <a href="">Add a Friend</a>
+                <a href="{%url 'logout'%}?next=/">Log Out</a>
+            {%else%}
+                <p>Not Logged In.</p>
+                <a href="{%url 'login'%}?next=/">Log In</a>
+            {%endif%}
+            
+		    <a href="{% url 'index' %}" id="{% curPathID request '/' %}">Index</a>
+		    <a href="{% url 'other' %}" id="{% curPathID request '/other' %}">Other</a>
+		    <a href="{% url 'quizzer:main' %}" id="{% curPathID request '/quizzer/' %}">Quizer</a>
+		    <a 
+		        href="{% url 'quizzer:quiz-form' %}" 
+		        id="{% curPathID request '/quizer/create_quiz/' %}"
+		        class="quizInner"
+	        >Create Quiz</a>
+	        <a 
+                href="{% url 'quizzer:quiz-list' %}" 
+                id="{% curPathID request '/quizzer/list_quizzes/' %}"
+                class="quizInner"
+            >List Quizzes</a>
+        </div>
+        
+        <div class="main">
+            <h1>{{ title }}</h1>
+              
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>    
+</html>
