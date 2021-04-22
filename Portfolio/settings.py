@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-from django.conf.global_settings import STATICFILES_DIRS
+from django.conf.global_settings import STATICFILES_DIRS, AUTH_USER_MODEL
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,15 +27,15 @@ SECRET_KEY = '8gznqz#rl!p===9c=sm=p*bd3ee*q=mq@azo1j$)(xamq8@^_y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','192.168.2.26']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','192.168.2.45']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'Base.apps.BaseConfig',
-    'Quizzer.apps.QuizzerConfig',
     'Profile.apps.ProfileConfig',
+    'Quizzer.apps.QuizzerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,3 +126,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'Base/static'),
 ]
+
+AUTH_USER_MODEL = 'Base.CustomUser'
+LOGIN_REDIRECT_URL = '../'

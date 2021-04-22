@@ -1,14 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {%if msg%}
-        {{msg}}
-     {%endif%}
-
-    <h1>All Quizzes</h1>
     <ul>
         {% for quiz in all_quizes %}
-            <li> <a href="{% url 'quizzer:quiz-list' %}{{ quiz.id }}">{{ quiz.name }}</a> </li>
+            <li> <a href="{% url 'quizzer:quiz-detail' pk=quiz.id%}">{{ quiz.name }}</a> </li>
         {% endfor %}
     </ul> 
 

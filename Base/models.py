@@ -1,16 +1,17 @@
-from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from Profile.models import Profile
+from utils import displayInConsole
 
-#
-#    
-#class Friend_Request(models.Model):
-#    from_user = models.ForeignKey(
-#        User, 
-#        related_name='from_user', 
-#        on_delete=models.CASCADE
-#        )
-#    to_user = models.ForeignKey(
-#        User, 
-#        related_name='to_user',
-#        on_delete=models.CASCADE
-#        )
+class CustomUser(AbstractUser):
+    pass
+
+    def __str__(self):
+        return self.username
+    
+    def save(self, *args, **kwargs):
+        displayInConsole(self)
+                
+        AbstractUser.save(self, *args, **kwargs)
+        if 'update_fields' not in kwargs:
+            Profile.objects.create(user=self)
+    

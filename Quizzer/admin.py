@@ -1,6 +1,19 @@
 from django.contrib import admin
-from .models import Quiz, Q_And_A
+from Quizzer.models.Quiz import Quiz, QuizTtl, AnswerResult, AnswerTtl
+from Quizzer.models.Base import QA
+from Quizzer.models.QuizResultClass import QuizResult
 
-admin.site.register(Quiz)
-admin.site.register(Q_And_A)
+class AdminDisplayID(admin.ModelAdmin):
+    list_display = ('__str__', 'id')
+    
+class AdminAnswerNumber(AdminDisplayID):
+    def get_list_display(self, request):
+        return AdminDisplayID.list_display + ('question',)
+
+admin.site.register(Quiz, AdminDisplayID)
+admin.site.register(QA, AdminDisplayID)
+admin.site.register(QuizResult, AdminDisplayID)
+admin.site.register(AnswerResult, AdminAnswerNumber)
+admin.site.register(QuizTtl)
+admin.site.register(AnswerTtl)
 

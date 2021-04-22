@@ -1,14 +1,12 @@
-from django.views import View
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView
 from django.utils.decorators import method_decorator
+from django.urls.base import reverse
 from django.contrib.auth.decorators import login_required
 from Profile.forms import FormFriendRequest, FormFriendDecision
 from Profile.models import FriendRequest, Profile
-from django.urls.base import reverse
-from django.views.generic.detail import DetailView, SingleObjectMixin
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import User
-from django.views.generic.list import ListView
+from Quizzer.models.Quiz import Quiz
+from utils import displayInConsole, getSessionMsg
 
 @method_decorator(login_required, name='dispatch')
 class ViewFriendRequest(CreateView):
@@ -16,20 +14,31 @@ class ViewFriendRequest(CreateView):
     form_class = FormFriendRequest    
      
     def get_form_kwargs(self):
+        displayInConsole(self)
+        
         kwargs = super(ViewFriendRequest, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
         
     def get_context_data(self, **kwargs):
+        displayInConsole(self)
+        
+        form = self.get_form()
         context = super().get_context_data(**kwargs)
-        if self.request.session.get('msg'):
-            context['msg'] = self.request.session['msg']
-            self.request.session['msg'] = None
+        context['title'] = 'Create Friend Request'
+#        context['hasRequests'] = form.hasRequests()
+        isMsg, msg = getSessionMsg(self) 
+        if isMsg:
+            context['msg'] = msg
+            
         return context
     
-    def form_valid(self, form):
+    def requestExist(self, form):
+        displayInConsole(self)
+        
         new_obj = form.instance 
         new_obj.from_user = self.request.user
+        
         try:
             FriendRequest.objects.get(
                 from_user=new_obj.from_user,
@@ -37,13 +46,24 @@ class ViewFriendRequest(CreateView):
             )            
             
         except FriendRequest.DoesNotExist:
+            '''REQUEST SESSION GOTTA CHANGE'''
             self.request.session['msg'] = 'Friend request sent'            
-            return super().form_valid(form)
+            return True
 #        
         self.request.session['msg'] = 'Friend request already sent'
-        return super().form_invalid(form)
+        return False
+    
+    def form_valid(self, form):
+        displayInConsole(self)
+        
+        if self.requestExist(form):
+            return super().form_valid(form)
+        else:
+            return super().form_invalid(form)
     
     def get_success_url(self):
+        displayInConsole(self)
+        
         return reverse('profile:friend-request')
     
 @method_decorator(login_required, name='dispatch')
@@ -51,77 +71,80 @@ class ViewFriendRequestState(FormView):
 
     model = FriendRequest
     template_name = 'Profile/friendrequest_list.html'
+    
+    def get_context_data(self, **kwargs):
+        displayInConsole(self) 
+          
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Friend Requests'
+        return context
         
     def get_form(self):
+        displayInConsole(self)
+        
         form = FormFriendDecision(self.request.user)
         return form 
     
-    def post(self, request, *args, **kwargs):
-
-        current_request = FriendRequest.objects.get(id=request.POST['requests'])
+    def approveRequest(self, curRequest):
+        displayInConsole(self)
+        
+        profile = Profile.objects.get(user=self.request.user)            
+        new_friend = curRequest.from_user
+        new_friend_profile = Profile.objects.get(user=new_friend)
+        profile.friends.add(new_friend)
+        new_friend_profile.friends.add(self.request.user)
+        
+    def handleRequest(self, request):
+        displayInConsole(self)
+        
+        curRequest = FriendRequest.objects.get(id=request.POST['requests'])
         
         if 'approve' in request.POST:
-            profile = Profile.objects.get(user=self.request.user)            
-            new_friend = current_request.from_user
-            profile.friends.add(new_friend)
+            self.approveRequest(curRequest)
         
-        current_request.delete()      
+        curRequest.delete()
         
+    def post(self, request, *args, **kwargs):
+        displayInConsole(self)
+        
+        self.handleRequest(request)
         return FormView.post(self, request, *args, **kwargs)
 
-@method_decorator(login_required, name='dispatch')
 class ViewProfile(DetailView):
     model = Profile
 
-    def get_object(self):
-        while 'id' in self.request.GET:
+    def getProfile(self):
+        if 'id' in self.kwargs:
             try:
-                self.object = Profile.objects.get(user=self.request.GET['id'])
+                self.object = Profile.objects.get(user=self.kwargs['id'])
                 return self.object
             except Profile.DoesNotExist:
-                break
+                self.extra_context = {
+                    'msg': 'Profile ID Does not Exist! Showing Your Profile instead.'
+                }
+                return
 
-        self.object =Profile.objects.get(user=self.request.user)
-        return self.object
+    def get_object(self):
+        displayInConsole(self)
+        
+        self.getProfile()
+
+        if not self.request.user.is_anonymous:
+            self.object = Profile.objects.get(user=self.request.user)
+            return self.object
     
     def get_context_data(self, **kwargs):
+        displayInConsole(self) 
+          
         context = super().get_context_data(**kwargs)
-        context['friends'] = self.object.friends.all()
+        context['title'] = 'Profile'
+        
+        if self.object:
+            context['friends'] = self.object.friends.all()
+            context['quizzes'] = Quiz.objects.filter(owner=self.object.user)
+        else:
+            context['msg'] = 'You must be logged in to view your profile!'
         return context
-
-#class ViewProfile(SingleObjectMixin, ListView):
-#    #model = Quiz
-#    template_name = 'Profile/profile_detail.html'
-#    paginate_by = 10
-#    queryset = None 
-##    object = None
-#
-#    def get_queryset(self):
-#        while 'id' in self.request.GET:
-#            try:
-#                self.queryset = Profile.objects.get(user=self.request.GET['id']).friends.all()
-#                return self.queryset
-#            except Profile.DoesNotExist:
-#                break
-#        
-#        self.queryset = Profile.objects.get(user=self.request.user).friends.all()
-#        return self.queryset
-#        
-#    
-#    def get_object(self, queryset=None):
-#        
-#        self.get_queryset()
-#        print(self.queryset.values('username'))
-#        return self.queryset
-#    
-#    def get_context_data(self, **kwargs):
-#        context = super().get_context_data(**kwargs)
-#        context['profile'] = self.object
-#        return context
-#    
-#    def get(self, request, *args, **kwargs):
-#        self.object = self.get_object(request) 
-#        return super().get(request, *args, **kwargs)
 
     
     
