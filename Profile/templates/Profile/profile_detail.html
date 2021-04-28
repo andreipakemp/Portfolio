@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{%block title%}Profile{% endblock title%}
+{% block content %}
+    
+    <h1>Profile: </h1> {{profile.user}}
+    
+    <h2>Friends:</h2>
+    {% for friend in friends %}
+        <li> {{ friend.username }}</li>
+    {% endfor %}
+    
+    <h2>Quizzes:</h2>
+    {% for quiz in quizzes %}
+        <li> {{ quiz.name }}</li>
+    {% endfor %}
+{% endblock %}

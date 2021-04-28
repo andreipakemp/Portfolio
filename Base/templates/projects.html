@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<center xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    <img src="/static/django.png" height="100px" style="padding: 50px;"></br>
+    <h3>Portfolio Built With Django</h3>
+</center>
+<div class="centered">
+    This is site is built on Python Django Framework.
+    </br>
+    Here you can find my employable information, as well use
+    a user/profile feature that works along with a Quizzer application
+    that I built to display my Python and Django knowledge.
+    </br></br>
+    User/Profile Features:
+    <ul>
+        <li>
+            Create personal user, and a profile that is provided with
+            the user account.
+        </li>
+        <li>
+            Can request, accept and decline friendships with other users.
+        </li>
+        <li>
+            Can use Quizzer app with the ability to keep single, and
+            over-all quiz results, as well return to unfinished quizzes
+            where last left off. More registered user quizzer function
+            available (explained in Quizzer app features.)
+        </li>
+        <li>
+            Can display and show personal profile that will display
+            quizzes created, quiz single and over-all results.
+        </li>
+    </ul>
+    Quizzer Features:
+    <ul>
+        <li>
+            Anonymous user can create a quiz, create said quiz
+            questions and take said quiz in general and random formats.
+        </li>
+        <li>
+            Anonymous user can see current quiz results.
+        </li>
+        <li>
+            Registered user can create a quiz, create said quiz
+            questions and take said quiz in all formats: general,
+            random, weight prioritized, weight prioritized random.
+        </li>
+        <li>
+            Registered users quiz results are recorded and used
+            to create or update overall quiz results to repeat
+            said quiz and take in more advanced formats that depend
+            on current or overall results.
+        </li>
+        <li>
+            Registered user current result are displayed after the
+            end of current quiz as well as accessed through user's
+            profile page.
+        </li>
+        <li>
+            Registered user overall quiz results are available to be
+            displayed in user's profile page.
+        </li>
+    </ul>
+</div>
+<center>
+    <img src="/static/djangodiglit.png" height="200px"></br>
+    <h3>Toronto Volunteer Drivers App.</h3>
+</center>
+<div class="centered">
+    Participating in Diglit Project to develop an applications that serves
+    and aids Toronto's Volunteer organizations and its drivers to send,
+    deliver and receive resources that are requested by said organization.
+    </br>
+    (Currently Ongoing Project)
+    </br></br>
+    Obtained Skills:
+    <ul>
+        <li>
+            Django Rest Framework: Able to serialize objects created
+            with python calls, and call for JSON formatted responces
+            from the server via terminal before hooking into main site
+            templates.
+        </li>
+        <li>
+            Swagger: Implementing and understanding a simpler management
+            of Django endpoints.
+        </li>
+        <li>
+            Docker: Building and running images.
+        </li>
+    </ul>
+</div>
+<center>
+    <img src="/static/javaetsy.png" height="200px"></br>
+    <h3>Java Etsy Application.</h3>
+</center>
+<div class="centered">
+    Java application to serve Etsy shop owners with a more
+    user-friendly and more intuitive approach to deal with
+    the renewal of their products.
+    </br></br>
+    [This app is developed with the help of Etsy API and Aouth 2.]
+    </br></br>
+    (Currently in Re-Development due new knowledge of writing
+    cleaner code. Acknowledged through "Clean Code" by Robert C. Martin)
+    </br></br>
+    App Features:
+    <ul>
+        <li>
+            Display of all products based on their initial
+            category.
+        </li>
+        <li>
+            Single or multiple product immediate renewal.
+        </li>
+        <li>
+            Single or multiple product scheduled renewal.
+        </li>
+        <li>
+            Single or multiple product scheduled continuous
+            renewal plan creation.
+        </li>
+    </ul>
+</div>
+{% endblock %}

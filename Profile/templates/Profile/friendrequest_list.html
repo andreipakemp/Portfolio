@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>All Friend Requests</h1>
+    <ul>
+        <form action="{%url 'profile:friend-request-list' %}" method="post" novalidate>
+            <table>
+                {{ form.as_table }}
+                {%if form.hasRequests%}
+                    <tr>
+    	                <td>&nbsp;</td>
+    	                <td><input type="submit" name="approve" value="Aprrove"></td>
+    	                <td><input type="submit" name="decline" value="Decline"></td>
+    	            </tr>
+    	        {%endif%}  
+            </table>         
+            {% csrf_token %}
+        </form>
+    </ul> 
+
+{% endblock %}
