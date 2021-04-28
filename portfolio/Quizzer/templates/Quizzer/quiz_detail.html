@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Quiz: {{ quiz.name }}</h1>
+    <h1>Owner: {{quiz.owner }}</h1>
+    <ul>
+    {% for QA in page_obj %}
+        <li> {{ QA.id }}</li>
+    {% endfor %}
+    </ul>
+    <a href="{%url 'quizzer:quiz' type='seq' id=quiz.id%}">Start Quiz</a>
+    {%if form%}
+	    <form action="" method="post" novalidate>
+	        <table>
+	            {{ form.as_table }}
+	            <tr>
+	                <td>&nbsp;</td>
+	                <td><input type="submit" value="Submit"></td>
+	            </tr>       
+	        </table>
+	        {% csrf_token %}
+	    </form>
+	{%endif%}      
+
+{% endblock %}
