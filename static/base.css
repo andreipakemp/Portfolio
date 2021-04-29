@@ -2,7 +2,7 @@
 
     background-image: url("/static/hex.jpg");
     background-attachment: fixed;
-    background-size: cover;
+    background-size: contain;
 }
 
 /* The sidebar menu */
