@@ -74,8 +74,8 @@
 
 .centered {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 200px;
+    margin-right: 200px;
     width: 50%;
 }
 
