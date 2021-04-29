@@ -23,7 +23,8 @@
             {%endif%}
             
 		    <a href="{% url 'index' %}" id="{% curPathID request '/' %}">Index</a>
-		    <a href="{% url 'other' %}" id="{% curPathID request '/other' %}">Other</a>
+		    <a href="{% url 'about' %}" id="{% curPathID request '/about' %}">About Me</a>
+            <a href="{% url 'projects' %}" id="{% curPathID request '/projects' %}">My Projects</a>
 		    <a href="{% url 'quizzer:main' %}" id="{% curPathID request '/quizzer/' %}">Quizer</a>		    
             <a 
                 href="{% url 'quizzer:quiz-list' %}" 
