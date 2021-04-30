@@ -26,7 +26,7 @@ SECRET_KEY = 'zcte(5o=u((&29x-1cny8d0=#7zxlfytqi&#1ogf4u2d^93q70'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['andreipakportfolio.pythonanywhere.com', '127.0.0.1', 'localhost','192.168.2.16']
+ALLOWED_HOSTS = ['andreipakportfolio.pythonanywhere.com', '127.0.0.1', 'localhost','192.168.2.34']
 
 
 # Application definition
