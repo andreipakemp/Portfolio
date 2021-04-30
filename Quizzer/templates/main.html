@@ -1,6 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-Quizer Main Page
-
+<div class="centered">
+    <h3>Welcome to my Quizzer Application!</h3>
+    <p>
+        This application mainly a simple demonstration of my Python/Django
+        experience and knowledge.</br>
+        Here anonymous user or a registered users are able create quizzes
+        as well as take said or other quizzes that are available. Said
+        quizzes upon creation can have restrictions set by registered users
+        where the quiz created can be taken or modified by general public,
+        users friends or private for only the owner of the quiz.</br></br>
+        A quiz can be taken in 2 different ways if taken by anonymous user,
+        said approaches to taking a quiz must also be chosen by a registered
+        user in order to unlock 2 other approaches available for registered
+        user; Questions in sequence of their creation, Questions randomized.</br></br>
+        For registered users if one of the former approaches is chosen and
+        the quiz is complete there will be 2 other options of taken said quiz;
+        Questions in order of weight of previous result (questions answered
+        incorrectly have higher weight and prompted before others with
+        less weight), and questions randomized with weight being considered.</br></br>
+        Each completion of quizzes will grand the user the results of said
+        quiz, for anonymous users the result will be destroyed after navigating
+        elsewhere to save space in the database, where as registered user
+        results will be saved for viewing and available via their profile.
+        Registered users result also will be used to determine over-all result
+        of said quiz being taken multiple of time to find where the user
+        has the hardest time but also to determine the weight of each question
+        in said quiz to provide more helpful approaches in taken said quiz.
+    </p>
+</div>
 {% endblock %}
