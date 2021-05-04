@@ -15,6 +15,18 @@
 		    <a href="{% url 'index' %}" id="{% curPathID request '/' %}">Home</a>
 		    <a href="{% url 'about' %}" id="{% curPathID request '/about' %}">About Me</a>
             <a href="{% url 'projects' %}" id="{% curPathID request '/projects' %}">My Projects</a>
+            <a href="{% url 'quizzer:main' %}" id="{% curPathID request '/quizzer/' %}">Quizer</a>
+            <a 
+                href="{% url 'quizzer:quiz-list' %}" 
+                id="{% curPathID request '/quizzer/list_quizzes/' %}"
+                class="quizInner"
+            >List Quizzes</a>
+                
+            <a 
+		        href="{% url 'quizzer:quiz-form' %}" 
+		        id="{% curPathID request '/quizzer/create_quiz/' %}"
+		        class="quizInner"
+	        >Create Quiz</a>
 
             {%if user.is_authenticated%}
                 <p class="greet">Hello, {{user.username}}.</p>
@@ -25,18 +37,6 @@
                 <p>Not Logged In.</p>
                 <a href="{%url 'login'%}">Log In</a>
             {%endif%}
-            <a href="{% url 'quizzer:main' %}" id="{% curPathID request '/quizzer/' %}">Quizer</a>
-            <a 
-                href="{% url 'quizzer:quiz-list' %}" 
-                id="{% curPathID request '/quizzer/list_quizzes/' %}"
-                class="quizInner"
-            >List Quizzes</a>
-                
-            <a 
-		        href="{% url 'quizzer:quiz-form' %}" 
-		        id="{% curPathID request '/quizer/create_quiz/' %}"
-		        class="quizInner"
-	        >Create Quiz</a>
         </div>
         <h1 class="title">{{ title }}</h1>
         <div class="main">
@@ -45,8 +45,10 @@
                 {{msg}}
             {%endif%} 
             <!--quizProgressValidation request-->
-            {% block content %}
-            {% endblock %}
+            <div class="centered">
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
     </body>    
 </html>

@@ -93,26 +93,30 @@ class ViewQuestionCreate(CreateView):
 
 class ViewQuiz(FormView):
     form_class = FormQuizA
-    template_name = 'Quizzer/q_and_a_detail.html'  
-    
-    @property
+    template_name = 'Quizzer/q_and_a_detail.html'
+
     def get_initial(self):
+        self.question_init()
+        return self.initial.copy()
+
+    def question_init(self):
         displayInConsole(self)
-        
+
         self.currentProcess = QuizResult.get(
-            self.request.user, 
+            self.request.user,
             self.kwargs['id'],
             self.kwargs['type']
-            )
+        )
         self.quiz = Quiz.objects.get(id=self.kwargs['id'])
         self.QA = self.currentProcess.current_question
-                
-        return FormView.get_initial(self)
     
     def get_context_data(self, **kwargs):
         displayInConsole(self)
+
+
         
-        context = FormView.get_context_data(self, **kwargs)
+        # context = FormView.get_context_data(self, **kwargs)
+        context = super().get_context_data(**kwargs)
         context['title'] = 'Quiz'
         context['quiz'] = self.quiz
         context['question'] = self.QA.question
@@ -149,7 +153,7 @@ class ViewQuiz(FormView):
                     }
                 )
     
-class ViewQuizTotal(DetailView):
+class ViewQuizResult(DetailView):
     model = QuizResult
     context_object_name = 'process'
     
@@ -157,7 +161,7 @@ class ViewQuizTotal(DetailView):
         displayInConsole(self)
 
         # noinspection PyTypeChecker
-        context = FormView.get_context_data(self, **kwargs)
+        context = super().get_context_data(**kwargs)
         context['title'] = 'Quiz Total'
         return context
     

@@ -69,8 +69,7 @@ class Quiz(QuizBase):
     
     @staticmethod
     def get(givenID):
-        displayInConsole('Quiz', True) 
-        
+        displayInConsole('Quiz', True)
         return Quiz.objects.get(id=givenID)
         
 class QuizTtl(QuizTtlBase):

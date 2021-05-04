@@ -47,7 +47,7 @@ class ViewUserCreate(CreateView):
         displayInConsole(self) 
           
         context = super().get_context_data(**kwargs)
-        context['title'] = ''
+        context['title'] = 'User Registation'
         return context
     
     def form_valid(self, form):
@@ -61,7 +61,7 @@ class ViewLoginCustom(LoginView):
         displayInConsole(self) 
           
         context = super().get_context_data(**kwargs)
-        context['title'] = ''
+        context['title'] = 'User Login'
         return context
     
     def handleAnonUser(self):

@@ -3,9 +3,14 @@
 
 {% block content %}
 
-    {{object.id}}<br>
+    <h3>{{object.quiz.name}}</h3><br>
+    <ul>
     {%for answer_result in object.answerresult_set.all%}
-        {{answer_result.question}} {{answer_result.result}}<br>
+        <li>
+            <b>Question:</b>{{answer_result.question.question}} </br>
+            <b>Correct Answer:</b>{{answer_result.question.answer}} </br>
+            <b>Result:</b>{{answer_result.result}}</br></br>
+        </li>
     {%endfor%}
-
+    </ul>
 {% endblock %}

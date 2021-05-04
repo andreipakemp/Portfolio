@@ -33,7 +33,7 @@
 }
 
 .sidenav a#curPage{
-	color: green;
+	color: gray;
 }
 
 .sidenav .quizInner{
@@ -68,13 +68,16 @@
     width: 70%;
 }
 
-.index {
+.login-form {
     display: block;
     margin-left: 100px;
     margin-right: 100px;
+    width: 70%;
+}
+
+.index {
     position: absolute;
     top: 300px;
-    width: 70%;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */

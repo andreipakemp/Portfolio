@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from Quizzer.views import ViewQuizCreate, ViewQuizList, ViewQuizDetail
-from Quizzer.views.viewsQuiz import ViewQuiz, ViewQuizTotal
+from Quizzer.views.viewsQuiz import ViewQuiz, ViewQuizResult
 #from Quizzer.views.viewsQuestions import ViewQuestionBase
 #from Quizzer.views.viewsQuiz import ViewQuizStart#, ViewQuizResult
 
@@ -13,7 +13,7 @@ urlpatterns = [
     path('list_quizzes/', ViewQuizList.as_view(), name='quiz-list'),
     path('list_quizzes/<int:pk>/', ViewQuizDetail.as_view(), name='quiz-detail'),
     path('quiz/<str:type>/<int:id>/', ViewQuiz.as_view(), name='quiz'),
-    path('quiz/<str:type>/<int:id>/result/', ViewQuizTotal.as_view(), name='quiz-result'),
-    path('quiz_total/<int:pk>', ViewQuizTotal.as_view(), name='quiz-total')
+    path('quiz/<str:type>/<int:id>/result/', ViewQuizResult.as_view(), name='quiz-result'),
+    # path('quiz_total/<int:pk>', ViewQuizTotal.as_view(), name='quiz-total')
     
 ]

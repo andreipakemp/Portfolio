@@ -1,20 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-    <h1>Quiz: {{ quiz }}</h1>
-    <h2>Question: {{question}}</h2>
-    {%if form%}
-        <form action="" method="post" novalidate>
-            <table>
-                {{ form.as_table }}
-                <tr>
-                    <td>&nbsp;</td>
-                    <td><input type="submit" value="Submit"></td>
-                </tr>       
-            </table>
-            {% csrf_token %}
-        </form>
-    {%endif%}        
-
+        <h1>Quiz: {{ quiz }}</h1>
+        <h2>Question: {{question}}</h2>
+        {%if form%}
+            <form action="" method="post" novalidate>
+                <table>
+                    {{ form.as_table }}
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><input type="submit" value="Submit"></td>
+                    </tr>
+                </table>
+                {% csrf_token %}
+            </form>
+        {%endif%}
 {% endblock %}

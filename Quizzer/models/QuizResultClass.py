@@ -27,7 +27,7 @@ class QuizResult(QuizResultBase):
             return process
 
         except Exception:
-            return QuizResult.createProcess(profile, quizCurrent, typeGiven)  #
+            return QuizResult.createProcess(profile, quizCurrent, typeGiven)
 
     @staticmethod
     def getFirstQuestion(profileCurrent, quizCurrent, quizTotalResult,  # @UnusedVariable
