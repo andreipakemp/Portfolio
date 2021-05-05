@@ -1,4 +1,7 @@
 import inspect
+from django.contrib import admin
+
+admin.site.enable_nav_sidebar = False
 
 def displayInConsole(objectsClass, staticMethod = False):
     frame = inspect.stack()[1]

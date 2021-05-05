@@ -4,7 +4,7 @@ from django.views.generic.detail import SingleObjectMixin, DetailView
 from Quizzer.forms.forms import FormQuizQA, FormQuizA
 from django.views.generic.edit import CreateView, FormView
 from django.urls import reverse
-from Quizzer.models.Quiz import Quiz, AnswerResult
+from Quizzer.models.Quiz import Quiz, AnswerResult, QuizTtl
 from Quizzer.models.Base import QA
 from Quizzer.models.QuizResultClass import QuizResult
 from utils import displayInConsole
@@ -125,7 +125,7 @@ class ViewQuiz(FormView):
     def form_valid(self, form): 
         displayInConsole(self)   
             
-        AnswerResult.create(
+        result = AnswerResult.create(
             self.currentProcess, 
             self.QA, 
             form.instance.answer
@@ -148,8 +148,7 @@ class ViewQuiz(FormView):
             return reverse(
                 'quizzer:quiz-result',
                 kwargs={
-                    'type':self.kwargs['type'],
-                    'id':self.kwargs['id']
+                    'id':self.currentProcess.id
                     }
                 )
     
@@ -162,7 +161,7 @@ class ViewQuizResult(DetailView):
 
         # noinspection PyTypeChecker
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Quiz Total'
+        context['title'] = 'Quiz Result'
         return context
     
     def get_object(self):
@@ -170,7 +169,30 @@ class ViewQuizResult(DetailView):
         
         self.object = QuizResult.objects.filter(
                 profile__user__id = None if self.request.user.is_anonymous else self.request.user.id,
-                quiz__id = self.kwargs['id'],
-                type = self.kwargs['type']
+                id = self.kwargs['id'],
+                # type = self.kwargs['type']
                 ).latest()
+        return self.object
+
+
+class ViewQuizTotal(DetailView):
+    model = QuizTtl
+    context_object_name = 'total'
+
+    def get_context_data(self, **kwargs):
+        displayInConsole(self)
+
+        # noinspection PyTypeChecker
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Quiz Total'
+        context['answer_results'] = self.object.getAnswerResults()
+        return context
+
+    def get_object(self):
+        displayInConsole(self)
+
+        self.object = QuizTtl.objects.get(
+            profile__user__id= self.request.user.id,
+            quiz__id=self.kwargs['id']
+        )
         return self.object

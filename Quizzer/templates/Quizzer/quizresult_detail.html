@@ -2,7 +2,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-
     <h3>{{object.quiz.name}}</h3><br>
     <ul>
     {%for answer_result in object.answerresult_set.all%}
@@ -13,4 +12,10 @@
         </li>
     {%endfor%}
     </ul>
+    <a href="{%url 'quizzer:quiz-detail' pk=object.quiz.id%}">
+        Back To Quiz Page
+    </a></br>
+    <a href="{%url 'quizzer:quiz-total' id=object.quiz.id%}">
+        Total Quiz Result
+    </a>
 {% endblock %}

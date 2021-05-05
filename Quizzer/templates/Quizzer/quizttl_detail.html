@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3>{{object.quiz.name}}</h3><br>
+    <ul>
+    {%for answer_result in answer_results%}
+        <li>
+            <b>Question:</b>{{answer_result.question.question}} </br>
+            <b>Correct Answer:</b>{{answer_result.question.answer}} </br>
+            <b>Amount of times entered incorrectly:</b>{{answer_result.weight|add:"-1"}}</br></br>
+        </li>
+    {%endfor%}
+    </ul>
+{%endblock%}

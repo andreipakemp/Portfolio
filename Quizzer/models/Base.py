@@ -60,27 +60,6 @@ class QA(models.Model):
     def __str__(self):
         return str(self.id)
     
-class QuizTtlBase(models.Model):
-    profile = models.ForeignKey(
-        Profile,
-        blank=False, 
-        null=True, 
-        on_delete=models.CASCADE        
-        )        
-    quiz = models.ForeignKey(
-        'Quiz',
-        blank=False, 
-        null=False, 
-        on_delete=models.CASCADE  
-        )
-    range_max = models.IntegerField(
-        default = 0
-        )
-    
-    class Meta:
-        abstract = True
-        
-    
 class QuizResultBase(models.Model):
     date = models.DateTimeField(
         auto_now_add=True,
@@ -126,7 +105,28 @@ class QuizResultBase(models.Model):
     def getRangeMax(self):
         displayInConsole(self)
         
-        return self.quiz_total_result.range_max  
+        return self.quiz_total_result.range_max
+
+
+class QuizTtlBase(models.Model):
+    profile = models.ForeignKey(
+        Profile,
+        blank=False,
+        null=True,
+        on_delete=models.CASCADE
+    )
+    quiz = models.ForeignKey(
+        'Quiz',
+        blank=False,
+        null=False,
+        on_delete=models.CASCADE
+    )
+    range_max = models.IntegerField(
+        default=0
+    )
+
+    class Meta:
+        abstract = True
     
 class AnswerResultBase(models.Model):
     quiz_process = models.ForeignKey(

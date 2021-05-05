@@ -14,6 +14,6 @@ admin.site.register(Quiz, AdminDisplayID)
 admin.site.register(QA, AdminDisplayID)
 admin.site.register(QuizResult, AdminDisplayID)
 admin.site.register(AnswerResult, AdminAnswerNumber)
-admin.site.register(QuizTtl)
+admin.site.register(QuizTtl, AdminDisplayID)
 admin.site.register(AnswerTtl)
 
