@@ -10,11 +10,6 @@ urlpatterns = [
         name='index'
         ),
     path(
-        'other',
-        views.otherPage, 
-        name='other'
-        ),
-    path(
         'about',
         views.aboutPage,
         name='about'
@@ -23,6 +18,11 @@ urlpatterns = [
         'projects',
         views.projectsPage,
         name='projects'
+        ),
+    path(
+        'resume',
+        views.resumePage,
+        name='resume'
         ),
     path(
         'register/', 

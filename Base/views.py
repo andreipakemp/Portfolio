@@ -16,11 +16,11 @@ def index(request):
         {'title': "Andrei Pak's Portfolio"}
         )
 
-def otherPage(request):
+def resumePage(request):
     return render(
         request, 
-        'other.html', 
-        {'title': "Other"}
+        'resume.html',
+        {'title': "Resume"}
         )
 
 def aboutPage(request):
