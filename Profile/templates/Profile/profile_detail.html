@@ -3,15 +3,34 @@
 {%block title%}Profile{% endblock title%}
 {% block content %}
     
-    <h1>Profile: </h1> {{profile.user}}
+    <h1>Profile: {{profile.user}}</h1>
     
-    <h2>Friends:</h2>
+    <h3>Friends:</h3>
     {% for friend in friends %}
         <li> {{ friend.username }}</li>
     {% endfor %}
     
-    <h2>Quizzes:</h2>
+    <h3>Create Quizzes:</h3>
     {% for quiz in quizzes %}
         <li> {{ quiz.name }}</li>
     {% endfor %}
+
+    <h3>Quiz Total Results</h3>
+    {% for quizTtl in profile.quizttl_set.all %}
+        <li>
+            <a href="{%url 'quizzer:quiz-total' id=quizTtl.id%}">
+                {{quizTtl.quiz.name}}
+            </a>
+        </li>
+    {% endfor %}
+
+    <h3>Quiz Individual Results</h3>
+    {% for quizResult in profile.quizresult_set.all %}
+        <li>
+            <a href="{%url 'quizzer:quiz-result' id=quizResult.id%}">
+                {{quizResult.quiz.name}}
+            </a>
+        </li>
+    {% endfor %}
+
 {% endblock %}

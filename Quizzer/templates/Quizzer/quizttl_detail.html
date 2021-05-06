@@ -11,4 +11,10 @@
         </li>
     {%endfor%}
     </ul>
+    <a href="{%url 'quizzer:quiz-detail' pk=object.quiz.id%}">
+        Back To Quiz Page
+    </a></br>
+    <a href="{%url 'profile:profile' %}">
+        Go to Your Profile
+    </a></br>
 {%endblock%}

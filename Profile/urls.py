@@ -6,9 +6,10 @@ from django.urls.conf import re_path
 app_name = 'profile'
 
 urlpatterns = [
+    # path('<int:pk>/', ViewProfile.as_view(), name='profile'),
     re_path(
-        r'^$|(?P<id>\d+)', 
-        ViewProfile.as_view(), 
+        r'^$|(?P<id>\d+)',
+        ViewProfile.as_view(),
         name='profile'
         ),
     path(

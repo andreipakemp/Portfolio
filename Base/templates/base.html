@@ -30,9 +30,21 @@
 
             {%if user.is_authenticated%}
                 <p class="greet">Hello, {{user.username}}.</p>
-                <a href="{%url 'profile:friend-request-list'%}">Friend Requests</a>
-                <a href="{%url 'profile:friend-request'%}">Add a Friend</a>
-                <a href="{%url 'logout'%}?next=/">Log Out</a>
+                <a
+                    href="{%url 'profile:profile'%}"
+                    id="{% curPathID request '/profile/' %}"
+                >Your Profile</a>
+                <a
+                    href="{%url 'profile:friend-request-list'%}"
+                    id="{% curPathID request '/profile/friend_request_list/' %}"
+                >Friend Requests</a>
+                <a
+                    href="{%url 'profile:friend-request'%}"
+                    id="{% curPathID request '/profile/friend_request/' %}"
+                >Add a Friend</a>
+                <a
+                    href="{%url 'logout'%}?next=/"
+                >Log Out</a>
             {%else%}
                 <p>Not Logged In.</p>
                 <a href="{%url 'login'%}">Log In</a>
